@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="ny.png" />
+    <title>NY Times</title>
+     <link rel="stylesheet" href="stylesheet.css" type="text/css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"> <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>NY Times</h1>
+        <img src="https://media-cdn.tripadvisor.com/media/photo-s/0e/9a/e3/1d/freedom-tower.jpg">
+
+        <input type="text">
+        <a class="waves-effect waves-light btn"><i class="material-icons right">search</i>SEARCH</a>
+
+
+        <div class="row" id="headlines">
+            <!-- List article titles HERE!!!! -->
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+    <script>
+
+        $(".btn").click(function(){
+            var userInput = $("input").val();
+            search(userInput);
+        })
+        function search(q) {
+            $("#headlines").html("")
+            nytUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${q}&sort=newest&api-key=ae8e47d5fe894c9090e7b0c769dc49e8`
+            $.getJSON(nytUrl, function (data) {
+                console.log(data)
+                //CODE GOES HERE
+                data.response.docs.forEach(function (item) {
+                    if (item.multimedia.length > 0) {
+                        var photo = `<a href = "https://nytimes.com/${item.multimedia["0"].url}"class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">photo_camera</i></a>`
+                    } else {
+                        var photo = ""
+                    }
+                    document.getElementById("headlines").innerHTML += `
+            
+                
+                <div class="col s12 m6">
+                <div class="card small blue-grey darken-1">
+                    <div class="card-content white-text">
+                    <span class="card-title">${item.headline.main} </span>
+                    <p>${item.snippet} </p>
+                    </div>
+                    <div class="card-action">
+                    <a href="${item.web_url}">Article Link</a>
+                    ${photo}
+                    </div>
+                </div>
+                </div>     
+                `
+
+
+                })
+            })
+        }
+
+    </script>
+</body>
+
+<input type="text">
+<if(input = "01101111 01101111 01100110"{
+    alert ("C0de Activated") 
+})
